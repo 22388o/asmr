@@ -31,7 +31,7 @@ use crate::{
     zec::{client::ZecShieldedClient, verifier::ZecShieldedVerifier},
     arrr::{client::ArrrClient, verifier::ArrrVerifier},
     vrsc::{client::VerusClient, verifier::VerusVerifier},
-    chips::{client::ChipsClient, verifier::ChipsVerifier}
+    chips::{host::ChipsHost, verifier::ChipsVerifier}
   },
   cli::{ScriptedCoin, UnscriptedCoin, Cli}
 };
@@ -55,6 +55,7 @@ async fn main() {
   if opts.host_or_client.is_host() {
     let mut scripted_host: AnyScriptedHost = match opts.pair.scripted {
       ScriptedCoin::Bitcoin => BtcHost::new(&scripted_config).map(Into::into),
+      ScriptedCoin::Chips => ChipsHost::new(&scripted_config).map(Into::into),
     }.expect("Failed to create scripted host");
     let mut unscripted_verifier: AnyUnscriptedVerifier = match opts.pair.unscripted {
       UnscriptedCoin::Meros => MerosVerifier::new(&unscripted_config).map(Into::into),
@@ -63,7 +64,6 @@ async fn main() {
       UnscriptedCoin::ZCashShielded => ZecShieldedVerifier::new(&unscripted_config).await.map(Into::into),
       UnscriptedCoin::PirateChain => ArrrVerifier::new(&unscripted_config).await.map(Into::into),
       UnscriptedCoin::VerusCoin => VerusVerifier::new(&unscripted_config).await.map(Into::into),
-      UnscriptedCoin::ChipsCoin => ChipsVerifier::new(&unscripted_config).await.map(Into::into)
     }.expect("Failed to create unscripted verifier");
 
     // Have the host also host the server socket
@@ -115,10 +115,10 @@ async fn main() {
       UnscriptedCoin::ZCashShielded => ZecShieldedClient::new(&unscripted_config).await.map(Into::into),
       UnscriptedCoin::PirateChain => ArrrClient::new(&unscripted_config).await.map(Into::into),
       UnscriptedCoin::VerusCoin => VerusClient::new(&unscripted_config).await.map(Into::into),
-      UnscriptedCoin::ChipsCoin => ChipsClient::new(&unscripted_config).await.map(Into::into),
     }.expect("Failed to create unscripted client");
     let mut scripted_verifier: AnyScriptedVerifier = match opts.pair.scripted {
       ScriptedCoin::Bitcoin => BtcVerifier::new(&scripted_config).map(Into::into),
+      ScriptedCoin::Chips => ChipsVerifier::new(&scripted_config).map(Into::into),
     }.expect("Failed to create scripted verifier");
 
     let stream = TcpStream::connect(opts.tcp_address).await.expect("Failed to connect to host");

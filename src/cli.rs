@@ -51,6 +51,8 @@ fn host_or_client_from_str(s: &str) -> Result<HostOrClient, HostOrClientError> {
 pub enum ScriptedCoin {
   #[enumeration(alias = "btc")]
   Bitcoin,
+  #[enumeration(alias = "chips")]
+  Chips,
 }
 
 #[derive(FromStr, Debug, Clone)]
@@ -67,8 +69,6 @@ pub enum UnscriptedCoin {
   PirateChain,
   #[enumeration(alias = "vrsc")]
   VerusCoin,
-  #[enumeration(alias = "chips")]
-  Chips,
 }
 
 enum AnyCoin {

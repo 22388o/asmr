@@ -49,6 +49,7 @@ pub trait ScriptedHost: Send + Sync {
 #[enum_dispatch]
 pub enum AnyScriptedHost {
   Btc(btc::host::BtcHost),
+  Chips(chips::host::ChipsHost),
 }
 
 #[async_trait]
@@ -80,8 +81,7 @@ pub enum AnyUnscriptedClient {
   Monero(xmr::client::XmrClient),
   ZCashShielded(zec::client::ZecShieldedClient),
   PirateChain(arrr::client::ArrrClient),
-  VerusCoin(vrsc::client::VerusClient),
-  Chips(chips::client::ChipsClient)
+  VerusCoin(vrsc::client::VerusClient)
 }
 
 #[async_trait]
@@ -116,6 +116,7 @@ pub trait ScriptedVerifier: Send + Sync {
 #[enum_dispatch]
 pub enum AnyScriptedVerifier {
   Btc(btc::verifier::BtcVerifier),
+  Chips(chips::verifier::ChipsVerifier),
 }
 
 #[async_trait]
@@ -137,5 +138,4 @@ pub enum AnyUnscriptedVerifier {
   ZCashShielded(zec::verifier::ZecShieldedVerifier),
   PirateChain(arrr::verifier::ArrrVerifier),
   VerusCoin(vrsc::verifier::VerusVerifier),
-  Chips(chips::verifier::ChipsVerifier)
 }
