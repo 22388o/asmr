@@ -5,6 +5,7 @@ pub mod xmr;
 pub mod zec;
 pub mod arrr;
 pub mod vrsc;
+pub mod chips;
 
 use std::marker::PhantomData;
 
@@ -79,7 +80,8 @@ pub enum AnyUnscriptedClient {
   Monero(xmr::client::XmrClient),
   ZCashShielded(zec::client::ZecShieldedClient),
   PirateChain(arrr::client::ArrrClient),
-  VerusCoin(vrsc::client::VerusClient)
+  VerusCoin(vrsc::client::VerusClient),
+  Chips(chips::client::ChipsClient)
 }
 
 #[async_trait]
@@ -134,5 +136,6 @@ pub enum AnyUnscriptedVerifier {
   Monero(xmr::verifier::XmrVerifier),
   ZCashShielded(zec::verifier::ZecShieldedVerifier),
   PirateChain(arrr::verifier::ArrrVerifier),
-  VerusCoin(vrsc::verifier::VerusVerifier)
+  VerusCoin(vrsc::verifier::VerusVerifier),
+  Chips(chips::verifier::ChipsVerifier)
 }

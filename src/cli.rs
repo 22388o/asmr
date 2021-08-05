@@ -67,6 +67,8 @@ pub enum UnscriptedCoin {
   PirateChain,
   #[enumeration(alias = "vrsc")]
   VerusCoin,
+  #[enumeration(alias = "chips")]
+  Chips,
 }
 
 enum AnyCoin {
